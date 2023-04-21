@@ -1,3 +1,18 @@
+<script setup >
+import DataTable from 'datatables.net-vue3';
+import DataTablesCore from 'datatables.net-bs5';
+
+DataTable.use(DataTablesCore);
+
+const columns = [
+  { data: 'pName' },
+  { data: 'Pprice' },
+  { data: 'Pdiscount' },
+  { data: 'category' },
+  { data: 'PstockState' },
+  { data: 'updatedAt' },
+];
+</script>
 <template>
     <div class="product-content">
         <div class="container">
@@ -89,27 +104,28 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-striped">
+                            <DataTable :columns="columns" :data="tableData" class="table table-hover table-striped">
                                 <thead>
                                     <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Price</th>
-                                    <th>Actions</th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>Discount</th>
+                                        <th>category</th>
+                                        <th>Stock</th>
+                                        <th>Last update</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr v-for="product in products" :key="product.id">
-                                    <td>{{ product._id }}</td>
-                                    <td>{{ product.pName }}</td>
-                                    <td>{{ product.Pprice }}</td>
-                                    <td>
-                                        <button class="btn btn-primary" @click="editProduct(product)">Edit</button>
-                                        <button class="btn btn-danger" @click="deleteProduct(product)">Delete</button>
-                                    </td>
+                                <tfoot>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>Discount</th>
+                                        <th>category</th>
+                                        <th>Stock</th>
+                                        <th>Last update</th>
                                     </tr>
-                                </tbody>
-                            </table>
+                                </tfoot>
+                            </DataTable>
                         </div>
                     </div>
                 </div>
@@ -119,11 +135,11 @@
 </template>
 <script>
 import vSelect from 'vue-select';
-import { ref } from 'vue'
 import axios from 'axios'
 export default {
     data() {
         return {
+            tableData: [],
             selectCategory: [],
             selectColor: [],
             optionsCategory: [
@@ -163,45 +179,30 @@ export default {
                 { label: 'SlateGray', value: '#708090' },
                 { label: 'Chocolate', value: '#d2691e' },
                 { label: 'Navy', value: '#000080' },
-
-
-
             ],
+            columns: [
+                { label: 'Name', field: 'pName' },
+                { label: 'Price', field: 'Pprice' },
+                { label: 'Discount', field: 'Pdiscount' },
+                { label: 'Category', field: 'category' },
+                { label: 'Stock', field: 'PstockState' },
+                { label: 'Last update', field: 'updatedAt' },
+                
+            ]
         };
     },
-    components: {
-        vSelect,
-    },
-    setup() {
-    const products = ref([])
-
-    // Fetch data from the API
+    mounted() {
     axios.get('http://103.3.62.246:2938/api/products')
       .then(response => {
-        products.value = response.data
+        this.tableData = response.data;
       })
       .catch(error => {
-        console.log(error)
-      })
-
-    // Edit a product
-    const editProduct = (product) => {
-      // Implement your edit logic here
-      console.log(`Editing product with ID ${product._id}`)
+        console.log(error);
+      });
+  },
+    components: {
+        vSelect,
     }
-
-    // Delete a product
-    const deleteProduct = (product) => {
-      // Implement your delete logic here
-      console.log(`Deleting product with ID ${product._id}`)
-    }
-
-    return {
-      products,
-      editProduct,
-      deleteProduct
-    }
-  }
 };
 </script>
 

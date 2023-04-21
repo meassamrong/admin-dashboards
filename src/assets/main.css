@@ -1,4 +1,6 @@
 @import './base.css';
+@import 'bootstrap';
+@import 'datatables.net-bs5';
 
 
 @media (min-width: 1024px) {

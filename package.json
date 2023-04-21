@@ -13,6 +13,8 @@
     "axios": "^1.3.6",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.3",
+    "datatables.net-bs5": "^1.13.4",
+    "datatables.net-vue3": "^2.1.0",
     "gitart-vue-dialog": "^2.4.1",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6",
