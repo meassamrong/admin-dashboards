@@ -56,7 +56,7 @@ export default {
     background: #fff;
     overflow-x: hidden;
     transition: width 0.3s ease-out;
-  z-index: 1000;
+    z-index: 1000;
 }
 .menu-side.responsive {
   width: 5%;
@@ -165,6 +165,7 @@ export default {
     position: fixed;
     width: 100%;
     height: 60px;
+    z-index: 99;
 }
 .header-nav {
     float: right;

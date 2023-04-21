@@ -17,6 +17,7 @@
     "datatables.net-vue3": "^2.1.0",
     "gitart-vue-dialog": "^2.4.1",
     "vue": "^3.2.47",
+    "vue-axios": "^3.5.2",
     "vue-router": "^4.1.6",
     "vue-select": "^4.0.0-beta.6"
   },
