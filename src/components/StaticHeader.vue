@@ -1,9 +1,10 @@
+<script setup>
+    import { RouterLink } from 'vue-router'
+</script>
 <template>
 <div class="header-content bg bg-success">
     <div class="container">
-        <div class="btn-menu-side text-white link-secondary" style="display: inline-block; padding-left: 10px; cursor: pointer;">
-            <h2><i class="bi bi-layout-text-sidebar-reverse"></i></h2>
-        </div>
+    
         <div class="header-nav text-white">
             <ul>
                 <li><a href="#"><i class="bi bi-person-circle"></i></a></li>
@@ -14,16 +15,16 @@
     </div>
 </div>
 <div class="menu-side" :class="{ 'responsive': isResponsive }">
-        <div class="logo">
-            <h2>J'CORP DEV</h2>
+        <div class="logo" :class="{ 'responsiveLogo': isResponsive }" >
+            <h2 :class="{ 'reverRespsonsiveLogo': isResponsive }">J'CORP DEV</h2>
         </div>
-        <div class="menu-btn-interaction" @click="toggleResponsive">
-                <i class="bi bi-caret-left-fill"></i>
+        <div class="menu-btn-interaction" :class="{ 'responsivebtn': isResponsive }" @click="toggleResponsive">
+                <i class="bi bi-caret-left-fill" ></i>
             </div>
         <div class="menu-items" :class="{ 'responsiveMnu': isResponsive }">
             <ul>
                 <li><a href=""><i class="bi bi-speedometer2"></i> <span>Dashboard</span></a></li>
-                <li><a href=""><i class="bi bi-diagram-3-fill"></i> <span>Products</span></a></li>
+                <li><RouterLink to="/products"><i class="bi bi-diagram-3-fill"></i> <span>Products</span></RouterLink></li>
                 <li><a href=""><i class="bi bi-bag-fill"></i> <span>Order</span></a></li>
                 <li><a href=""><i class="bi bi-pie-chart-fill"></i> <span>Analytics</span></a></li>
                 <li><a href=""><i class="bi bi-people-fill"></i> <span>Customer List</span></a></li>
@@ -65,6 +66,35 @@ export default {
     padding: 10px 0px;
     color: rgb(0, 138, 16);
     font-size: 35px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.reverRespsonsiveLogo {
+    transition: all 2500ms linear;
+    animation: reverRespsonsiveLogo 300ms linear forwards;
+
+}
+@keyframes reverRespsonsiveLogo {
+    from {
+        font-size: 15px;
+    }
+    to {
+        font-size: 35px;
+    }
+}
+.logo.responsiveLogo h2{
+    animation: logoResponsiveLogo 300ms linear forwards;
+
+}
+@keyframes logoResponsiveLogo {
+    from {
+        font-size: 35px;
+    }
+    to {
+        font-size: 15px;
+    }
 }
 .menu-btn-interaction{
     float: right;
@@ -112,7 +142,7 @@ export default {
     height: 60px;
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: right;
     align-items: center;
 }
 .menu-items.responsiveMnu  ul li a span{
@@ -124,12 +154,17 @@ export default {
     background-color:rgba(0, 138, 16, 0.386);
     transform: translateX(0px);
 }
+
+.menu-btn-interaction.responsivebtn {
+-webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
 /* Close Menu */
 .header-content {
     padding: 5px 0px;
     position: fixed;
     width: 100%;
-    height: auto;
+    height: 60px;
 }
 .header-nav {
     float: right;
