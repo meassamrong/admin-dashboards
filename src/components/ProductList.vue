@@ -12,6 +12,7 @@ const columns = [
 ];
 </script>
 <template>
+    <notifications></notifications>
     <div class="product-list">
         <div class="card">
             <div class="card-header bg bg-success text-white">
@@ -22,25 +23,25 @@ const columns = [
             <div class="card-body">
                 <div class="table-responsive">
                     <DataTable :columns="columns" :data="tableData" class="table table-hover table-striped">
-                        <thead>
-                                <tr>
+                        <thead class="text-primary">
+                            <tr>
                                     <th>Name</th>
                                     <th>Price</th>
                                     <th>Discount</th>
                                     <th>category</th>
                                     <th>Stock</th>
                                     <th>Last update</th>
-                                </tr>
+                            </tr>
                         </thead>
-                        <tfoot>
-                                <tr>
+                        <tfoot class="text-primary">
+                            <tr>
                                     <th>Name</th>
                                     <th>Price</th>
                                     <th>Discount</th>
                                     <th>category</th>
                                     <th>Stock</th>
                                     <th>Last update</th>
-                                </tr>
+                            </tr>
                         </tfoot>
                     </DataTable>
                 </div>
@@ -60,8 +61,7 @@ export default  {
                 { label: 'Discount', field: 'Pdiscount' },
                 { label: 'Category', field: 'category' },
                 { label: 'Stock', field: 'PstockState' },
-                { label: 'Last update', field: 'updatedAt' },
-                
+                { label: 'Last update', field: 'updatedAt' }
             ]
         }
     },
@@ -72,7 +72,7 @@ export default  {
       })
       .catch(error => {
         console.log(error);
-      });
+      })
   },
 }
 </script>

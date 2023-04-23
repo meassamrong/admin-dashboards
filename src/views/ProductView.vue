@@ -5,6 +5,7 @@ import ProductList from '../components/ProductList.vue';
     <div class="product-content">
         <div class="container">
             <div class="post-product-form">
+                <notifications position="bottom right" classes="my-custom-class" />
                 <div class="card">
                     <form class="upload-product-form" @submit="PostProduct" method="post">
                         <div class="card-header bg bg-primary text-white">
@@ -76,7 +77,7 @@ import ProductList from '../components/ProductList.vue';
                                     <input type="submit" value="Post" class="form-control btn btn-primary text-white">
                                 </div>
                                 <div class="btn-group col-md-2">
-                                    <input type="button" value="Clear" class="form-control btn btn-warning text-white">
+                                    <!-- <input type="button" value="Clear" @click="resetValue" class="form-control btn btn-warning text-white"> -->
                                 </div>
                             </div>
                         </div>
@@ -148,7 +149,7 @@ export default {
             }
         };
     },
-    methods : { 
+    methods : {
         PostProduct(e) {
             this.Pproducts.category = this.selectCategory.map(object => object.value)
             this.Pproducts.color = this.selectColor.map(object => object.value)
@@ -157,10 +158,18 @@ export default {
             axios.post('http://103.3.62.246:2938/api/products', this.Pproducts)
             .then((result)=> {
                 console.warn(result)
+                this.$notify({
+                    title: 'Success',
+                    text: 'Data sent successfully',
+                    type: 'success'
+                    })
+                
             })
-           
             e.preventDefault();
-        }
+        },
+        // resetValue() {
+        //     this.Pproducts = []
+        // }
     },
     components: {
         vSelect,
