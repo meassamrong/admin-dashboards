@@ -50,8 +50,10 @@ const columns = [
     </div>
 </template>
 <script>
+import { defineComponent } from 'vue'
 import axios from 'axios'
-export default  {
+export default defineComponent({
+    name: 'getProduct',
     data() {
         return { 
             tableData: [],
@@ -65,16 +67,21 @@ export default  {
             ]
         }
     },
+    methods: {
+        getProduct(){
+            axios.get('http://103.3.62.246:2938/api/products')
+            .then(response => {
+                this.tableData = response.data;
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        }
+    },
     mounted() {
-    axios.get('http://103.3.62.246:2938/api/products')
-      .then(response => {
-        this.tableData = response.data;
-      })
-      .catch(error => {
-        console.log(error);
-      })
-  },
-}
+        this.getProduct()
+  }
+})
 </script>
 <style scoped>
 .product-list {
