@@ -1,12 +1,12 @@
 <script setup>
-import ProductList from '../components/ProductList.vue';
-import PostProduct from '../components/PostProduct.vue';
+// import ProductList from '../components/ProductList.vue';
+// import PostProduct from '../components/PostProduct.vue';
+import ProductManagment from '../components/ProductManagments.vue';
 </script>
 <template>
     <div class="product-content">
         <div class="container">
-            <PostProduct/>
-            <ProductList/>
+        <ProductManagment/>
         </div>
     </div>
 </template>

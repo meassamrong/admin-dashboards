@@ -9,9 +9,10 @@ import 'gitart-vue-dialog/dist/style.css'
  
 import "vue-select/dist/vue-select.css"
 import Notifications from '@kyvg/vue3-notification'
+import velocity from 'velocity-animate'
 const app = createApp(App)
  
 app.use(router)
-app.use(Notifications)
+app.use(Notifications, {velocity})
 app.mount('#app')
 
