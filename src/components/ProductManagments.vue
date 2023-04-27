@@ -1,16 +1,4 @@
-<script setup >
-import DataTable from 'datatables.net-vue3';
-import DataTablesCore from 'datatables.net-bs5';
-DataTable.use(DataTablesCore);
-const columns = [
-    { data: 'pName' },
-    { data: 'Pprice' },
-    { data: 'Pdiscount' },
-    { data: 'category' },
-    { data: 'PstockState' },
-    { data: 'updatedAt' },
-];
-</script>
+
 <template>
     <div class="post-product-form">
         <div class="card">
@@ -98,6 +86,7 @@ const columns = [
         <div class="card">
             <div class="card-header bg bg-success text-white">
                 <div class="card-title ">
+                    <button @click="deleteProduct('asmdklasdn')">Test</button>
                     <h3>Product List</h3>
                 </div>
             </div>
@@ -107,21 +96,23 @@ const columns = [
                         <thead class="text-primary">
                             <tr>
                                 <th>Name</th>
-                                <th>Price</th>
-                                <th>Discount</th>
+                                <th>Price ($)</th>
+                                <th>Discount (%)</th>
                                 <th>category</th>
                                 <th>Stock</th>
                                 <th>Last update</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tfoot class="text-primary">
                             <tr>
                                 <th>Name</th>
-                                <th>Price</th>
-                                <th>Discount</th>
+                                <th>Price ($)</th>
+                                <th>Discount (%)</th>
                                 <th>category</th>
                                 <th>Stock</th>
                                 <th>Last update</th>
+                                <th>Actions</th>
                             </tr>
                         </tfoot>
                     </DataTable>
@@ -129,13 +120,33 @@ const columns = [
             </div>
         </div>
     </div>
+    <!-- confirm delete dialog form -->
+    <GDialog v-model="dialogState" max-width="500">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">DELETE CONFIRM !</div>
+            </div>
+            <div class="card-body">
+                <p>Sure ? You want delete the product !</p>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-primary" @click="dialogState = false">Cancel</button>
+                <button class="btn btn-danger">OK</button>
+            </div>
+        </div>
+    </GDialog>
 </template>
 <script>
+import { h } from 'vue'
+import DataTable from 'datatables.net-vue3';
+import DataTablesCore from 'datatables.net-bs5';
+DataTable.use(DataTablesCore);
 import vSelect from 'vue-select';
 import axios from 'axios';
 export default {
     data() {
         return {
+            dialogState : false,
             selectCategory: [],
             selectColor: [],
             tableData: [],
@@ -191,23 +202,40 @@ export default {
                 updatedAt: null
             },
             columns: [
-                { label: 'Name', field: 'pName' },
-                { label: 'Price', field: 'Pprice' },
-                { label: 'Discount', field: 'Pdiscount' },
-                { label: 'Category', field: 'category' },
-                { label: 'Stock', field: 'PstockState' },
-                { label: 'Last update', field: 'updatedAt' }
+                { data: 'pName' },
+                { data: 'Pprice' },
+                { data: 'Pdiscount' },
+                { data: 'category' },
+                { data: 'PstockState' },
+                { data: 'updatedAt' },
+                {
+                    label: 'Actions',
+                    field: 'actions',
+                    orderable: false,
+                    render: (data, type, row) => {
+                        return `
+                            <div class="btn-group" role="group" aria-label="Actions">
+                                
+                                <button type="button" class="btn btn-sm btn-warning" `+  h('button', {onClick(){this.dialogState = true}})+`><i class="bi bi-pencil-square"></i></button>
+                                <button type="button" class="btn btn-sm btn-danger" v-on:click="deleteProduct(${row._id})"><i class="bi bi-trash"></i></button>
+                            </div>
+                        `;
+                    },
+                }
             ]
-        };
-
+        }
     },
     methods: {
+        deleteProduct(productId) {
+            console.log(productId)
+            this.dialogState = true
+        },
         PostProduct(e) {
             this.Pproducts.category = this.selectCategory.map(object => object.value)
             this.Pproducts.color = this.selectColor.map(object => object.value)
             this.Pproducts.Pimage = this.Pproducts.Pimage.split(' ')
             this.Pproducts.updatedAt = new Date().toUTCString()
-            axios.post('http://103.3.62.246:2938/api/products', this.Pproducts)
+            axios.post('http://127.0.0.1:5000/api/products', this.Pproducts)
                         .then((result) => {
                             console.warn(result);
                             this.getProduct()
@@ -236,21 +264,28 @@ export default {
             e.preventDefault();
         },
         getProduct() {
-            axios.get('http://103.3.62.246:2938/api/products')
+            axios.get('http://127.0.0.1:5000/api/products')
                 .then(response => {
                     this.tableData = response.data;
                 })
                 .catch(error => {
                     console.log(error);
                 })
-        }
+        },
+        editProduct(productId) {
+            // Add logic to edit the selected product
+            console.warn(`YOur edit product ${productId}`)
+        },
+        
     },
     mounted() {
         this.getProduct()
     },
     components: {
-        vSelect
-    }
+        vSelect,
+        DataTable
+    },
+   
 }
 </script>
 <style scoped>
