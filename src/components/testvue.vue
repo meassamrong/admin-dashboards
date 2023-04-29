@@ -52,15 +52,7 @@ const columns = [
 export default {
     data() { 
         return {
-            tableData : [],
-            columns: [
-                { label: 'Name', field: 'pName' },
-                { label: 'Price', field: 'Pprice' },
-                { label: 'Discount', field: 'Pdiscount' },
-                { label: 'Category', field: 'category' },
-                { label: 'Stock', field: 'PstockState' },
-                { label: 'Last update', field: 'updatedAt' }
-            ]
+            tableData : []
         }
     },
     methods : {

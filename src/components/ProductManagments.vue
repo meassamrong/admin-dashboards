@@ -137,6 +137,7 @@
     </GDialog>
 </template>
 <script>
+import $ from 'jquery';
 import { h } from 'vue'
 import DataTable from 'datatables.net-vue3';
 import DataTablesCore from 'datatables.net-bs5';
@@ -212,12 +213,14 @@ export default {
                     label: 'Actions',
                     field: 'actions',
                     orderable: false,
-                    render: (data, type, row) => {
+                    searchable: false,
+                    className: 'text-center',
+                    render: (data, type, row, meta) => {
                         return `
                             <div class="btn-group" role="group" aria-label="Actions">
                                 
-                                <button type="button" class="btn btn-sm btn-warning" `+  h('button', {onClick(){this.dialogState = true}})+`><i class="bi bi-pencil-square"></i></button>
-                                <button type="button" class="btn btn-sm btn-danger" v-on:click="deleteProduct(${row._id})"><i class="bi bi-trash"></i></button>
+                                <button type="button" class="btn btn-sm btn-warning edit-button" data-id="${row._id}"><i class="bi bi-pencil-square"></i></button>
+                                <button type="button" class="btn btn-sm btn-danger delete-button" data-id="${row._id}"><i class="bi bi-trash"></i></button>
                             </div>
                         `;
                     },
@@ -226,10 +229,6 @@ export default {
         }
     },
     methods: {
-        deleteProduct(productId) {
-            console.log(productId)
-            this.dialogState = true
-        },
         PostProduct(e) {
             this.Pproducts.category = this.selectCategory.map(object => object.value)
             this.Pproducts.color = this.selectColor.map(object => object.value)
@@ -244,7 +243,6 @@ export default {
                                 text: 'Data sent successfully',
                                 type: 'success'
                             })
-                            // Clear the form fields
                             this.Pproducts.Pname = null
                             this.Pproducts.description = null
                             this.Pproducts.Pimage = null
@@ -264,22 +262,38 @@ export default {
             e.preventDefault();
         },
         getProduct() {
-            axios.get('http://127.0.0.1:5000/api/products')
+        axios.get('http://127.0.0.1:5000/api/products')
                 .then(response => {
-                    this.tableData = response.data;
-                })
-                .catch(error => {
+                this.tableData = response.data;
+            })
+            .catch(error => {
                     console.log(error);
-                })
+            })
         },
         editProduct(productId) {
             // Add logic to edit the selected product
             console.warn(`YOur edit product ${productId}`)
         },
+        deleteProduct(productId) {
+            console.log(productId)
+            this.dialogState = true
+        },
         
     },
     mounted() {
-        this.getProduct()
+        this.getProduct();
+        this.$nextTick(function () {
+            const table = $('.table').DataTable();
+            $('.table tbody').on('click', '.edit-button', function () {
+                const id = $(this).data('id');
+                // handle edit action here
+            });
+            $('.table tbody').on('click', '.delete-button', function(e){
+                const id = $(this).data('id');
+                console.warn(id);
+                
+            });
+        });
     },
     components: {
         vSelect,
