@@ -2,8 +2,16 @@
 @import 'bootstrap';
 @import 'datatables.net-bs5';
 
-
+@import './dataTable.css';
 @media (min-width: 1024px) {
 
 
 }
+
+
+@font-face {
+    font-family: goodtimes;
+    src: url('../assets/fonts/goodtimesrg.otf');
+}
+
+

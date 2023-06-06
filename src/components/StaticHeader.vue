@@ -2,187 +2,139 @@
     import { RouterLink } from 'vue-router'
 </script>
 <template>
-<div class="header-content bg bg-success">
-    <div class="container">
-    
-        <div class="header-nav text-white">
-            <ul>
-                <li><a href="#"><i class="bi bi-person-circle"></i></a></li>
-                <li><a href="#"><i class="bi bi-bell-fill"></i></a></li>
-                <li><a href="#"><i class="bi bi-gear-wide-connected"></i></a></li>
-            </ul>
+    <div class="navigation_headers">
+        <div class="container">
+            <div class="row">
+                <div class="menu_btn col-6">
+                    <div class="row">
+                        <div class="logo">
+                            <h4>J'Corp-Shop</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2"></div>
+                <div class="user-interation col-4">
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-decoration-none text-white">
+                                <h4><i class="bi bi-bell"></i></h4>
+                            </a></li>
+                        <li><a href="#" class="text-decoration-none text-white">
+                                <h4><i class="bi bi-envelope"></i></h4>
+                            </a></li>
+                        <li><a href="#" class="text-decoration-none text-white">
+                                <h4>Sample name</h4>
+                            </a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<div class="menu-side" :class="{ 'responsive': isResponsive }">
-        <div class="logo" :class="{ 'responsiveLogo': isResponsive }" >
-            <h2 :class="{ 'reverRespsonsiveLogo': isResponsive }">J'CORP DEV</h2>
-        </div>
-        <div class="menu-btn-interaction" :class="{ 'responsivebtn': isResponsive }" @click="toggleResponsive">
-                <i class="bi bi-caret-left-fill" ></i>
-            </div>
-        <div class="menu-items" :class="{ 'responsiveMnu': isResponsive }">
-            <ul>
-                <li><a href=""><i class="bi bi-speedometer2"></i> <span>Dashboard</span></a></li>
-                <li><RouterLink to="/products"><i class="bi bi-diagram-3-fill"></i> <span>Products</span></RouterLink></li>
-                <li><a href=""><i class="bi bi-bag-fill"></i> <span>Order</span></a></li>
-                <li><a href=""><i class="bi bi-pie-chart-fill"></i> <span>Analytics</span></a></li>
-                <li><a href=""><i class="bi bi-people-fill"></i> <span>Customer List</span></a></li>
-            </ul>
-        </div>
-</div>
+    <!-- Side Menu -->
+    <div class="menu-side">
+        <ul>
+            <li><a href="#"><i class="bi bi-pie-chart-fill"></i></a></li>
+            <li><RouterLink to="/"><i class="bi bi-house"></i></RouterLink></li>
+            <li><RouterLink to="/products"><i class="bi bi-clipboard-plus"></i></RouterLink></li>
+        </ul>
+    </div>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      isResponsive: false,
-    };
-  },
-  methods: {
-    toggleResponsive() {
-      this.isResponsive = !this.isResponsive;
-    },
-  },
-};
-</script>
 <style scoped>
+.navigation_headers {
+    width: 100%;
+    height: auto;
+    padding: 10px 0px;
+    background-color: var(--dark-color-light-1);
+    display: flex;
+    align-items: center;
+    position: fixed;
+    z-index: 9;
+}
+.logo h4 {
+    color: #fff !important;
+    font-family: goodtimes;
+}
 
-/* Menu side */
+.user-interation {
+    text-align: right;
+}
+
+.user-interation ul {
+    padding: 0px;
+    margin: 0px;
+    font-size: 0px;
+}
+
+.user-interation ul li {
+    display: inline-block;
+    padding: 0px 15px;
+}
+
+.user-interation ul li:nth-last-child(odd) {
+    padding: 0px;
+}
+
+.user-interation ul li a {
+    transition: all 0.5s;
+}
+
+.user-interation ul li a:hover {
+    color: aquamarine !important;
+}
+
+.user-interation ul li a h4 {
+    padding: 0px;
+    margin: 0px;
+}
+
+.user_img {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.user_img img {
+    height: 30px;
+    width: 30px;
+}
+
+/* Side Menu */
 .menu-side {
     position: fixed;
-    width: 15%;
-    height: 100%;
-    background: #fff;
-    overflow-x: hidden;
-    transition: width 0.3s ease-out;
-    z-index: 1000;
-}
-.menu-side.responsive {
-  width: 5%;
-}
-.menu-side .logo {
-    text-align: center;
-    padding: 10px 0px;
-    color: rgb(0, 138, 16);
-    font-size: 35px;
-    height: 60px;
+    z-index: 1;
+    width: auto;
+    height: 80vh;
+    background-color: var(--green-color-light-1);
+    top: 50%;
+    transform: translate(0%, -50%);
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.reverRespsonsiveLogo {
-    transition: all 2500ms linear;
-    animation: reverRespsonsiveLogo 300ms linear forwards;
 
-}
-@keyframes reverRespsonsiveLogo {
-    from {
-        font-size: 15px;
-    }
-    to {
-        font-size: 35px;
-    }
-}
-.logo.responsiveLogo h2{
-    animation: logoResponsiveLogo 300ms linear forwards;
-
-}
-@keyframes logoResponsiveLogo {
-    from {
-        font-size: 35px;
-    }
-    to {
-        font-size: 15px;
-    }
-}
-.menu-btn-interaction{
-    float: right;
-    color: rgb(0, 138, 16);
-    font-size: 25px;
-    background-color: rgba(174, 170, 170, 0.437);
-    padding: 0px 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    z-index: 99;
-}
-.menu-btn-interaction:hover {
-    background-color:rgba(0, 138, 16, 0.386);
-}
-.menu-side .menu-items ul{
-    margin: 0px;
+.menu-side ul {
     padding: 0px;
-    padding-top: 10px;
-    list-style-type: none;
-    font-size: 0px;
-    border-top: solid 1px rgba(0, 138, 16, 0.363);
-}
- 
-.menu-side .menu-items ul li a {
-    font-size: 20px;
-    text-decoration: none;
-    padding: 5px 20px;
-    display: inline-block;
-    width: 100%;
-    transition: all 0.3s ease-in-out;
-    color : var(--font-menu-grycolor);
-    border-radius: 5px;
-    
-}
-.menu-side .menu-items ul li a span {
-    padding: 0px 10px;
-    transition: width 0.5s linear;
-   
-}
-.menu-side .menu-items ul li a:hover {
-    background-color:rgba(0, 138, 16, 0.386);
-    transform: translateX(30px);
-}
-.menu-items.responsiveMnu  ul li a {
-    height: 60px;
-    width: 100%;
-    display: flex;
-    justify-content: right;
-    align-items: center;
-}
-.menu-items.responsiveMnu  ul li a span{
-    transition: width 0.5s linear;
-   visibility: hidden;
-   font-size:0px
-}
-.menu-items.responsiveMnu  ul li a:hover {
-    background-color:rgba(0, 138, 16, 0.386);
-    transform: translateX(0px);
-}
-
-.menu-btn-interaction.responsivebtn {
--webkit-transform: scaleX(-1);
-  transform: scaleX(-1);
-}
-/* Close Menu */
-.header-content {
-    padding: 5px 0px;
-    position: fixed;
-    width: 100%;
-    height: 60px;
-    z-index: 99;
-}
-.header-nav {
-    float: right;
-  
-}
-.header-nav ul{
     margin: 0px;
-    padding: 0px;
     list-style-type: none;
     font-size: 0px;
 }
-.header-nav ul li {
-    display: inline-block;
-    padding: 5px 10px;
+
+.menu-side ul li {
+    padding: 10px;
 }
-.header-nav ul li a {
-    font-size: 25px;
-    color: #ffff;
+
+.menu-side ul li a {
+    font-size: 25px !important;
+    color: #fff;
+    transition: all 0.2s;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.menu-side ul li a:hover {
+    color: #edddd4;
+    background-color: #283d3d;
 }
 </style>

@@ -1,0 +1,17 @@
+.dataTables_paginate  {
+    text-align: right !important;
+}
+.dataTables_paginate a{
+    font-size: 20px;
+    padding: 5px !important;
+    cursor: pointer;
+    text-decoration: none;
+}
+.dataTables_length {
+    float: left;
+    padding: 10px 0px !important;
+}
+.dataTables_filter {
+    float: right !important;
+    padding: 10px 0px !important;
+}
