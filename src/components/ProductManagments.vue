@@ -10,7 +10,6 @@
                     </div>
                 </div>
                 <div class="card-body">
-
                     <div class="row">
                         <div class="form-group col-md-4">
                             <label for="pname">Name</label>
@@ -138,14 +137,13 @@
 </template>
 <script>
 import $ from 'jquery';
-import { h } from 'vue'
 import DataTable from 'datatables.net-vue3';
 import DataTablesCore from 'datatables.net-bs5';
 DataTable.use(DataTablesCore);
 import vSelect from 'vue-select';
 import axios from 'axios';
 export default {
-    data() {
+    data(){
         return {
             dialogState : false,
             selectCategory: [],

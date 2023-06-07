@@ -78,15 +78,3 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Notification */
-.my-notification {
-  top: 10%;
-  position: absolute;
-  padding: 10px;
-  font-size: 25px;
-  color: #ffffff;
-
-}
-.my-notification .notification-content , .my-notification .notification-title {
-  font-size: 25px !important; 
-}

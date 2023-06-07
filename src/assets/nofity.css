@@ -1,0 +1,11 @@
+/* Notification */
+.my-notification {
+    position: absolute;
+    padding: 10px;
+    font-size: 25px;
+    color: #ffffff;
+  
+  }
+  .my-notification .notification-content , .my-notification .notification-title {
+    font-size: 25px !important; 
+  }

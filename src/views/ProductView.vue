@@ -7,7 +7,7 @@ import PostProducts from '../components/PostProducts.vue';
             <div class="products-section">
                 <div class="row">
                     <div class="products-titles col-6">
-                        <h2 class="text-primary"><b><i class="bi bi-file-earmark-text"></i> Product Management</b></h2>
+                        <h2 class="text-primary"><b><i class="bi bi-file-earmark-text"></i> PRODUCT MANAGERMENTS</b></h2>
                     </div>
                     <div class="add-products text-end col-6">
                         <button class="btn btn-success" @click="addProductForm = true"><i class="bi bi-plus-circle-fill"></i> Add Product</button>
@@ -18,9 +18,20 @@ import PostProducts from '../components/PostProducts.vue';
             </div>
         </div>
     </div>
-    <GDialog v-model="addProductForm" height="80vh" max-width="65%">
-        <PostProducts/>
-    </GDialog>
+        <GDialog v-model="addProductForm" height="auto" width="50%" >
+            <div class="container">
+                <div class="row" style="padding: 15px 0px;">
+                    <div class="text-primary col-6">
+                        <h3><b>POST NEW PRODUCTS</b></h3>
+                    </div>
+                    <div class="close-button col-6 text-end">
+                            <button @click="addProductForm = false" class="btn btn-danger"><i class="bi bi-x-circle"></i></button>
+                    </div>
+                </div>
+            </div>
+            <PostProducts/>
+            
+        </GDialog>
 </template>
 <script>
 

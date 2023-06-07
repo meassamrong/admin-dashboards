@@ -1,4 +1,5 @@
 <template>
+    <notifications animation-type="velocity" position="top center" width="50%" class="my-notification" />
     <div class="card" style="padding: 10px;">
         <table id="data-table" class="table">
             <thead>
@@ -31,16 +32,23 @@
     </div>
 
     <!-- Confirm Delete Products popup -->
-    <GDialog v-if=" DeleteProduct " width="25%" v-model=" confirmDeleteProducts ">
+    <GDialog v-if="DeleteProduct" width="25%" v-model="confirmDeleteProducts">
         <div class="card">
-            <div class="closeForm text-end text-primary" style="padding: 10px 10px 0px 0px; cursor: pointer;"
-                @click=" confirmDeleteProducts = false ">
-                <h2> <i class="bi bi-x-lg"></i></h2>
-            </div>
             <div class="card-body">
-                <h3 class="text-danger text-center" style="padding-bottom: 10px;">Delete Warning <i
-                        class="bi bi-exclamation-diamond"></i></h3>
-                <p class="text-center">Do you want to Delete <b>" {{DeleteProduct.pName}} "</b></p>
+                <div class="row">
+                    <div class="title">
+                        <h3 class="text-danger text-center">
+                            Delete Warning <i class="bi bi-exclamation-diamond"></i>
+                        </h3>
+                    </div>
+                    <div class="closeForm">
+                        <h3 class="col-1 text-center" @click=" confirmDeleteProducts = false"
+                            style="cursor: pointer; position: absolute; right: 0px; top: -50px;">
+                            <i class="bi bi-x-lg"></i>
+                        </h3>
+                    </div>
+                </div><br>
+                <p class="text-center">Do you want to Delete <b>" {{ DeleteProduct.pName }} "</b></p>
             </div>
             <div class="card-footer text-end">
                 <div class="btn btn-danger" @click="deleteProducts(DeleteProduct._id)">
@@ -78,9 +86,9 @@ export default {
                 .catch(error => {
                     console.error(error);
                 });
-                this.$eventBus.on('getData', (getData)=>{
-                    this.getData();
-                })
+            this.$eventBus.on('getData', (getData) => {
+                this.getData();
+            })
         },
         initializeDataTable() {
             this.$nextTick(() => {
@@ -95,10 +103,10 @@ export default {
         },
         ConfirmDelete(PItem) {
             this.DeleteProduct = PItem
-           
+
         },
         deleteProducts(id) {
-            axios.delete(apiEndPoint+'/'+id)
+            axios.delete(apiEndPoint + '/' + id)
                 .then(response => {
                     this.getData();
                     this.confirmDeleteProducts = false;
@@ -110,21 +118,19 @@ export default {
                     })
                 })
                 .catch(error => {
-                    // Handle error
-                    console.error('Error deleting data:', error);
                     this.$notify({
                         title: 'Error deleting data',
                         text: error,
                         type: 'error'
                     })
-            });
+                });
 
         }
     },
     setup() {
         const confirmDeleteProducts = ref(false)
         return {
-            confirmDeleteProducts
+            confirmDeleteProducts,
         }
     },
     beforeDestroy() {

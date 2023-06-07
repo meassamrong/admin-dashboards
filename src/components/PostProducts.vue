@@ -1,79 +1,68 @@
 <template>
-    <div class="card">
-        <notifications animation-type="velocity" position="top center" width="50%" class="my-notification" />
+     <notifications animation-type="velocity" position="top center" width="50%" class="my-notification" />
+    <div class="container" style="padding-bottom: 50px;">
         <form class="upload-product-form" @submit="PostProduct" method="post">
-            <div class="card-header bg bg-primary text-white">
-                <div class="card-title">
-                    <h3>Uploads Products</h3>
+            <div class="card" >
+                <div class="card-body">
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label for="pname" class="form-label">Name</label>
+                            <input type="text" name="pname" id="pname" class="form-control" v-model="Pproducts.Pname" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="category"  class="form-label">Category</label>
+                            <v-select v-model="selectCategory" :options="optionsCategory" name="category" label="label" required multiple />
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="color"  class="form-label">Color</label>
+                            <v-select v-model="selectColor" :options="optionsColor" name="color" label="label" required multiple />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="pdescripts" class="form-label">Product Details</label>
+                            <textarea v-model="Pproducts.description" name="pdescripts" id="pdescripts" cols="30" class="form-control" required></textarea>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="pdescripts text-primary">Product Image As Url</label>
+                            <textarea v-model="Pproducts.Pimage" name="pdescripts" id="pdescripts" cols="30" class="form-control" required></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-3">
+                            <label for="pprice" class="form-label">Product Cost ($)</label>
+                            <input type="number" class="form-control" v-model="Pproducts.Pprice" required>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="poffer" class="form-label">Discount (%)</label>
+                            <input type="number" class="form-control" v-model="Pproducts.Pdiscount" required>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="stock" class="form-label">Stock ( If 0 stock is out )</label>
+                            <input name="stock" type="number" class="form-control" v-model="Pproducts.stockState" required>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="prating" class="form-label">Product Rating</label>
+                            <select class="form-select" v-model="Pproducts.Prating">
+                                <option value="1">1</option>
+                                <option value="1.5">1.5</option>
+                                <option value="2">2</option>
+                                <option value="2.5">2.5</option>
+                                <option value="3">3</option>
+                                <option value="3.5">3.5</option>
+                                <option value="4">4</option>
+                                <option value="4.5">4.5</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="card-body">
-
+            <div class="card-footer " style="padding: 10px 0px;">
                 <div class="row">
-                    <div class="form-group col-md-4">
-                        <label for="pname">Name</label>
-                        <input type="text" name="pname" id="pname" class="form-control" v-model="Pproducts.Pname">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="category">Category</label>
-                        <v-select v-model="selectCategory" :options="optionsCategory" name="category" label="label"
-                            multiple />
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="color">Color</label>
-                        <v-select v-model="selectColor" :options="optionsColor" name="color" label="label" multiple />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        <label for="pdescripts">Product Details</label>
-                        <textarea v-model="Pproducts.description" name="pdescripts" id="pdescripts" cols="30"
-                            class="form-control"></textarea>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="pdescripts text-primary">Product Image As Url</label>
-                        <textarea v-model="Pproducts.Pimage" name="pdescripts" id="pdescripts" cols="30"
-                            class="form-control"></textarea>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-md-3">
-                        <label for="pprice">Product Cost ($)</label>
-                        <input type="number" class="form-control" v-model="Pproducts.Pprice">
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label for="poffer">Discount (%)</label>
-                        <input type="number" class="form-control" v-model="Pproducts.Pdiscount">
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label for="stock">Stock ( If 0 stock is out )</label>
-                        <input name="stock" type="number" class="form-control" v-model="Pproducts.stockState">
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label for="prating">Product Rating</label>
-                        <select class="form-select" v-model="Pproducts.Prating">
-                            <option value="1">1</option>
-                            <option value="1.5">1.5</option>
-                            <option value="2">2</option>
-                            <option value="2.5">2.5</option>
-                            <option value="3">3</option>
-                            <option value="3.5">3.5</option>
-                            <option value="4">4</option>
-                            <option value="4.5">4.5</option>
-                            <option value="5">5</option>
-                        </select>
-                    </div>
-                </div>
-
-            </div>
-            <div class="footer">
-                <div class="row">
-                    <div class="btn-group col-md-2">
-                        <input type="submit" value="Post" class="form-control btn btn-primary text-white">
-                    </div>
-                    <div class="btn-group col-md-2">
-                        <!-- <input type="button" value="Clear" @click="resetValue" class="form-control btn btn-warning text-white"> -->
-                    </div>
+                    <div class="text-end">
+                        <input type="submit" value="Post" class="btn btn-primary col-2 text-white">
+                    </div>      
                 </div>
             </div>
         </form>
