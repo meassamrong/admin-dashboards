@@ -2,6 +2,7 @@
 import PostProducts from '../components/PostProducts.vue';
 </script>
 <template>
+    <notifications animation-type="velocity" position="top right" width="30%" class="my-notification" />
     <div class="product-menagerments">
         <div class="container">
             <div class="products-section">
@@ -43,7 +44,6 @@ export default {
   },
 }
 </script>
-
 <style scoped>
 .product-menagerments {
     padding-top: 80px;

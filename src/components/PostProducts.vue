@@ -1,39 +1,43 @@
 <template>
-     <notifications animation-type="velocity" position="top center" width="50%" class="my-notification" />
     <div class="container" style="padding-bottom: 50px;">
         <form class="upload-product-form" @submit="PostProduct" method="post">
-            <div class="card" >
+            <div class="card">
                 <div class="card-body">
                     <div class="row">
                         <div class="form-group col-md-4">
                             <label for="pname" class="form-label">Name</label>
-                            <input type="text" name="pname" id="pname" class="form-control" v-model="Pproducts.Pname" required>
+                            <input type="text" name="pname" id="pname" class="form-control" v-model="Pproducts.Pname"
+                                required>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="category"  class="form-label">Category</label>
-                            <v-select v-model="selectCategory" :options="optionsCategory" name="category" label="label" required multiple />
+                            <label for="category" class="form-label">Category</label>
+                            <v-select v-model="selectCategory" :options="optionsCategory" name="category" label="label"
+                                required multiple />
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="color"  class="form-label">Color</label>
-                            <v-select v-model="selectColor" :options="optionsColor" name="color" label="label" required multiple />
+                            <label for="color" class="form-label">Color</label>
+                            <v-select v-model="selectColor" :options="optionsColor" name="color" label="label" required
+                                multiple />
                         </div>
-                    </div>
+                    </div><br>
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label for="pdescripts" class="form-label">Product Details</label>
-                            <textarea v-model="Pproducts.description" name="pdescripts" id="pdescripts" cols="30" class="form-control" required></textarea>
+                            <textarea v-model="Pproducts.description" name="pdescripts" id="pdescripts" cols="30"
+                                class="form-control" required></textarea>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="pdescripts text-primary">Product Image As Url</label>
-                            <textarea v-model="Pproducts.Pimage" name="pdescripts" id="pdescripts" cols="30" class="form-control" required></textarea>
+                            <label for="pdescripts" class="form-label">Product Image As Url</label>
+                            <textarea v-model="Pproducts.Pimage" name="pdescripts" id="pdescripts" cols="30"
+                                class="form-control"></textarea>
                         </div>
-                    </div>
+                    </div><br>
                     <div class="row">
                         <div class="form-group col-md-3">
                             <label for="pprice" class="form-label">Product Cost ($)</label>
                             <input type="number" class="form-control" v-model="Pproducts.Pprice" required>
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-3"> 
                             <label for="poffer" class="form-label">Discount (%)</label>
                             <input type="number" class="form-control" v-model="Pproducts.Pdiscount" required>
                         </div>
@@ -41,7 +45,7 @@
                             <label for="stock" class="form-label">Stock ( If 0 stock is out )</label>
                             <input name="stock" type="number" class="form-control" v-model="Pproducts.stockState" required>
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-3"> 
                             <label for="prating" class="form-label">Product Rating</label>
                             <select class="form-select" v-model="Pproducts.Prating">
                                 <option value="1">1</option>
@@ -62,7 +66,7 @@
                 <div class="row">
                     <div class="text-end">
                         <input type="submit" value="Post" class="btn btn-primary col-2 text-white">
-                    </div>      
+                    </div>
                 </div>
             </div>
         </form>
@@ -138,11 +142,14 @@ export default {
             axios.post('http://127.0.0.1:5000/api/products', this.Pproducts)
                 .then((result) => {
                     this.$notify({
-                        title: 'Success',
+                        title: '<i class="bi bi-check-circle"></i> Success',
                         text: 'Data sent successfully',
                         type: 'success'
                     })
+                    console.log(result)
                     this.$eventBus.emit('getData', this.getData);
+                    this.selectCategory = []
+                    this.selectColor = []
                     this.Pproducts.Pname = null
                     this.Pproducts.description = null
                     this.Pproducts.Pimage = null
@@ -153,11 +160,7 @@ export default {
                 })
                 .catch((error) => {
                     console.log(error)
-                    this.$notify({
-                        title: 'Error !',
-                        text: 'Failed to send data',
-                        type: 'error'
-                    })
+
                 })
             e.preventDefault();
         }
