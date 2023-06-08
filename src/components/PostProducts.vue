@@ -37,7 +37,7 @@
                             <label for="pprice" class="form-label">Product Cost ($)</label>
                             <input type="number" class="form-control" v-model="Pproducts.Pprice" required>
                         </div>
-                        <div class="form-group col-md-3"> 
+                        <div class="form-group col-md-3">
                             <label for="poffer" class="form-label">Discount (%)</label>
                             <input type="number" class="form-control" v-model="Pproducts.Pdiscount" required>
                         </div>
@@ -45,7 +45,7 @@
                             <label for="stock" class="form-label">Stock ( If 0 stock is out )</label>
                             <input name="stock" type="number" class="form-control" v-model="Pproducts.stockState" required>
                         </div>
-                        <div class="form-group col-md-3"> 
+                        <div class="form-group col-md-3">
                             <label for="prating" class="form-label">Product Rating</label>
                             <select class="form-select" v-model="Pproducts.Prating">
                                 <option value="1">1</option>
